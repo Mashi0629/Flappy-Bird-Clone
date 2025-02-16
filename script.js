@@ -34,3 +34,44 @@ function draw(){
 }
 
 update();
+
+// add moving pipes
+
+let pipes = [];
+let pipeWidth = 50;
+let pipeGap = 150;
+let pipeVelocity = -3;
+
+// func to create pipe
+function createPipe(){
+    let randomHeight = Math.floor(Math.random() * (canvas.height - pipeGap - 50)) + 20;
+    pipes.push({ x: canvas.width, y: randomHeight});
+
+}
+
+//function to update pipes
+function updatePipes(){
+    for (let i = 0; i < pipes.length; i++){
+        pipes[i].x += pipeVelocity;
+
+        if (pipes[i].x + pipeWidth <0){
+            pipes.splice(i, 1);
+            i--;
+            createPipe();
+        }
+    }
+}
+
+//draw pipes
+function drawPipes(){
+    ctx.fillStyle =  "green";
+    for (let pipe of pipes){
+        ctx.fillRect(pipe.x, 0, pipeWidth, pipe.y);
+        ctx.fillRect(pipe.x, pipe.y + pipeGap, pipeWidth, canvas.height - pipe.y - pipeGap);
+
+    }
+    
+}
+
+createPipe();
+setInterval(createPipe, 2000);
