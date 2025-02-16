@@ -21,6 +21,11 @@ function update(){
     checkCollision();
 if (isGameOver) return;
 
+if (isGameOver) {
+    showGameOver();
+    return;
+}
+
 updateScore();
 
     if(bird.y > canvas.height - bird.height){
@@ -118,4 +123,21 @@ function drawScore(){
     ctx.font = "20px Arial";
     ctx.fillText("Score:" + score, 20, 30);
 }
+
+//Game Over & Restart Feature
+function showGameOver(){
+    ctx.fillStyle = "red";
+    ctx.font = "30px Arial";
+    ctx.fillText("Game Over", canvas.width / 2 - 70, canvas.height / 2);
+
+}
+
+document.addEventListener("keydown", (event) => {
+    if (isGameOver && event.code === "Enter") {
+        location.reload();
+    }
+});
+
+
+
 
