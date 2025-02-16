@@ -21,6 +21,8 @@ function update(){
     checkCollision();
 if (isGameOver) return;
 
+updateScore();
+
     if(bird.y > canvas.height - bird.height){
         isGameOver = true;
     }
@@ -33,6 +35,9 @@ function draw(){
 
     ctx.fillStyle = "yellow";
     ctx.fillStyle(bird.x, bird.y, bird.width, bird.height);
+
+    drawScore();
+
 
 }
 
@@ -95,3 +100,22 @@ function checkCollision(){
         }
     }
 }
+
+//add score 
+let score = 0;
+
+function updateScore(){
+for (let pipe of pipes){
+    if (pipe.x + pipeWidth === bird.x){
+        score++;
+    }
+}
+}
+
+
+function drawScore(){
+    ctx.fillStyle = "black";
+    ctx.font = "20px Arial";
+    ctx.fillText("Score:" + score, 20, 30);
+}
+
