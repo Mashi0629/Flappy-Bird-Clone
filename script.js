@@ -8,6 +8,11 @@ let bird = {x:50, y:250, width:30, height:30, velocityY:0};
 let gravity = 0.5;
 let isGameOver = false;
 
+let pipes = [];  
+let pipeWidth = 50;
+let pipeGap = 150;
+let pipeVelocity = -3;
+
 document.addEventListener("keydown",()=>{
     bird.velocityY = -7;
 });
@@ -46,13 +51,6 @@ function draw(){
 }
 
 update();
-
-// add moving pipes
-
-let pipes = [];
-let pipeWidth = 50;
-let pipeGap = 150;
-let pipeVelocity = -3;
 
 // func to create pipe
 function createPipe(){
