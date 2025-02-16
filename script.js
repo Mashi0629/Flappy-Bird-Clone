@@ -18,6 +18,9 @@ function update(){
     bird.velocityY += gravity;
     bird.y += bird.velocityY;
 
+    checkCollision();
+if (isGameOver) return;
+
     if(bird.y > canvas.height - bird.height){
         isGameOver = true;
     }
@@ -75,3 +78,20 @@ function drawPipes(){
 
 createPipe();
 setInterval(createPipe, 2000);
+
+// implement collision detection
+function checkCollision(){
+    if(bird.y + bird.height >= canvas.height){
+        isGameOver = true;
+    }
+    for (let pipe of pipes){
+        if(
+            bird.x < pipe.x + pipeWidth &&
+            bird.x + bird.width > pipe.x &&
+            (bird.y < pipe.y || bird.y + bird.height > pipe.y + pipeGap)
+
+        ){
+            isGameOver = true;
+        }
+    }
+}
