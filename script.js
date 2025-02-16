@@ -13,20 +13,17 @@ document.addEventListener("keydown",()=>{
 });
 
 function update(){
-    if (isGameOver) return;
+    if (isGameOver){
+        showGameOver();
+        return;
+    } 
 
     bird.velocityY += gravity;
     bird.y += bird.velocityY;
 
     checkCollision();
-if (isGameOver) return;
-
-if (isGameOver) {
-    showGameOver();
-    return;
-}
-
-updateScore();
+    updatePipes();
+    updateScore();
 
     if(bird.y > canvas.height - bird.height){
         isGameOver = true;
@@ -35,12 +32,14 @@ updateScore();
     requestAnimationFrame(update);
 }
 
+
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "yellow";
-    ctx.fillStyle(bird.x, bird.y, bird.width, bird.height);
+    ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
 
+    drawPipes();
     drawScore();
 
 
@@ -111,8 +110,9 @@ let score = 0;
 
 function updateScore(){
 for (let pipe of pipes){
-    if (pipe.x + pipeWidth === bird.x){
+    if (!pipe.passed && pipe.x + pipeWidth < bird.x){
         score++;
+        pipe.passed = true;
     }
 }
 }
