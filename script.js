@@ -13,6 +13,8 @@ let pipeWidth = 50;
 let pipeGap = 150;
 let pipeVelocity = -3;
 
+let score = 0;
+
 document.addEventListener("keydown",()=>{
     bird.velocityY = -7;
 });
@@ -103,8 +105,7 @@ function checkCollision(){
     }
 }
 
-//add score 
-let score = 0;
+
 
 function updateScore(){
 for (let pipe of pipes){
